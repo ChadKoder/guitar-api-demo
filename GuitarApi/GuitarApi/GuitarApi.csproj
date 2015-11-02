@@ -93,6 +93,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Commands\CreateSampleData.cs" />
+    <Compile Include="Commands\DeleteAllFromRepository.cs" />
     <Compile Include="GuitarServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>

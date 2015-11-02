@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceProcess;
+using GuitarApi.Commands;
 using Microsoft.Owin.Hosting;
 
 namespace GuitarApi
@@ -21,10 +22,13 @@ namespace GuitarApi
 
         protected override void OnStop()
         {
+            new DeleteAllFromRepository().Delete();
+
             if(_server != null)
             {
                 _server.Dispose();
             }
+            
             base.OnStop();
         }
     }
