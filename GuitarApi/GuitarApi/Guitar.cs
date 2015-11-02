@@ -3,8 +3,6 @@
     [TableName("Products")]
     public class Guitar
     {
-        public string ProductID { get; set; }
-
         public string Company { get; set; }
 
         public string Model { get; set; }
@@ -24,5 +22,7 @@
         public string Price { get; set; }
 
         public string Url { get; set; }
+
+        public string ImgUrl { get; set; }
     }
 }
