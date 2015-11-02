@@ -4,8 +4,6 @@ using System.Net.Http;
 using System.Web.Http;
 using GuitarApi.Commands;
 using GuitarApi.Formatters;
-using GuitarApi.Queries;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace GuitarApi.controllers

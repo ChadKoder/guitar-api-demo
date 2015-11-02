@@ -2,8 +2,6 @@
 using GuitarApi.Commands;
 using GuitarApi.Formatters;
 using GuitarApi.handlers;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using Owin;
 
 namespace GuitarApi
