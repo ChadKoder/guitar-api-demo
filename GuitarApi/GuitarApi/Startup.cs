@@ -1,6 +1,9 @@
 ﻿using System.Web.Http;
+using GuitarApi.Commands;
 using GuitarApi.Formatters;
 using GuitarApi.handlers;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Owin;
 
 namespace GuitarApi
@@ -27,8 +30,10 @@ namespace GuitarApi
             config.Routes.MapHttpRoute(name: "GuitarApi",
             routeTemplate: "api/Guitar/{action}",
             defaults: new { controller = "Guitar", action = "{action}" });
-
+            
             appBuilder.UseWebApi(config);
+
+            new CreateSampleData().Create();
         }
     }
 }

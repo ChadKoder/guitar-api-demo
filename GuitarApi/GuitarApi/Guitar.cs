@@ -1,8 +1,11 @@
-﻿namespace GuitarApi
+﻿using MongoDB.Bson;
+
+namespace GuitarApi
 {
-    [TableName("Products")]
     public class Guitar
     {
+        public ObjectId _id { get; set; }
+
         public string Company { get; set; }
 
         public string Model { get; set; }
