@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
+using GuitarApi.Interfaces;
+using MongoDB.Driver;
 
 namespace GuitarApi.Queries
 {
-    class GetAllGuitars
+    class GetAllGuitars : IGetAllGuitars
     {
-        private readonly Database _db;
-
-        public GetAllGuitars(Database db)
+        public virtual List<Guitar> Select()
         {
-            _db = db;
-        }
-
-        public IEnumerable<Guitar> Execute()
-        {
-            return _db.Query<Guitar>("SELECT Company, Model, Description, BodyType, TotalFrets, FinishTop, FinishNeck, FinishBackSides, Price, Url, ImgUrl FROM Products");
+            var client = new MongoClient("mongodb://localhost/");
+            var database = client.GetDatabase("GuitarApiDB");
+            var collection = database.GetCollection<Guitar>("Products");
+            return collection.Find(_ => true).ToListAsync().Result;
         }
     }
 }

@@ -114,6 +114,7 @@
     <Compile Include="Formatters\JsonpMediaTypeFormatter.cs" />
     <Compile Include="Handlers\CorsHandler.cs" />
     <Compile Include="Handlers\CorsOptions.cs" />
+    <Compile Include="Interfaces\IGetAllGuitars.cs" />
     <Compile Include="Interfaces\IGetGuitarsByCompany.cs" />
     <Compile Include="PetaPoco.cs" />
     <Compile Include="Guitar.cs" />
