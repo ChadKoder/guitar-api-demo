@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.2.0.2\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -106,11 +109,12 @@
     <Compile Include="GuitarService.designer.cs">
       <DependentUpon>GuitarService.cs</DependentUpon>
     </Compile>
-    <Compile Include="controllers\GuitarController.cs" />
+    <Compile Include="Controllers\GuitarController.cs" />
     <Compile Include="FormatterConfig.cs" />
     <Compile Include="Formatters\JsonpMediaTypeFormatter.cs" />
-    <Compile Include="handlers\CorsHandler.cs" />
-    <Compile Include="handlers\CorsOptions.cs" />
+    <Compile Include="Handlers\CorsHandler.cs" />
+    <Compile Include="Handlers\CorsOptions.cs" />
+    <Compile Include="Interfaces\IGetGuitarsByCompany.cs" />
     <Compile Include="PetaPoco.cs" />
     <Compile Include="Guitar.cs" />
     <Compile Include="Program.cs" />

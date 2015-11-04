@@ -1,4 +1,7 @@
 ﻿using System.ServiceProcess;
+using Autofac;
+using GuitarApi.Interfaces;
+using GuitarApi.Queries;
 
 namespace GuitarApi
 {
@@ -9,6 +12,12 @@ namespace GuitarApi
         /// </summary>
         static void Main()
         {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<GetGuitarsByCompany>().As<IGetGuitarsByCompany>();
+
+            var container = builder.Build();
+            container.Resolve<IGetGuitarsByCompany>();
+            
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 

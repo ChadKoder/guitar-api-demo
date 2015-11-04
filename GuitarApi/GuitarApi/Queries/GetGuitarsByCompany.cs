@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using GuitarApi.Interfaces;
 using MongoDB.Driver;
 
 namespace GuitarApi.Queries
 {
-    public class GetGuitarsByCompany
+    public class GetGuitarsByCompany : IGetGuitarsByCompany
     {
-        public List<Guitar> Select(string searchText)
+        public virtual List<Guitar> Select(string searchText)
         {
             var client = new MongoClient("mongodb://localhost/");
             var database = client.GetDatabase("GuitarApiDB");
