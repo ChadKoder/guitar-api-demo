@@ -25,3 +25,5 @@ Properties/
 *.cmd
 packages.config
 Packages.dgml
+
+GuitarApi/GuitarApi.Tests/bin/
