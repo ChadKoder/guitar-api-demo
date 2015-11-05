@@ -7,34 +7,14 @@ namespace GuitarApi
 {
     static class Program
     {
-      //  private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        
         public static void Main(string[] args)
         {
             try
             {
-                BuildContainer();
-                WriteDate();
-
                 log4net.Config.XmlConfigurator.Configure();
-             
-                var runAsService = CommandLineParser.ShouldRunAsService(args);
-
-                if (runAsService)
-                {
-                    ServiceBase[] ServicesToRun;
-                    ServicesToRun = new ServiceBase[]
-                    {
-                        new GuitarService()
-                    };
-
-                    ServiceBase.Run(ServicesToRun);
-                }
-                else
-                {
-                    Log.Debug("Running application as console...");
-                    RunAsConsole(args);
-                }
+                RunAsServiceOrConsole(args);
             }
             catch (Exception ex)
             {
@@ -42,12 +22,26 @@ namespace GuitarApi
             }
         }
 
-        private static void BuildContainer()
+        private static void RunAsServiceOrConsole(string[] args)
         {
-        }
+            var runAsService = CommandLineParser.ShouldRunAsService(args);
 
-        private static void WriteDate()
-        {
+            if (runAsService)
+            {
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[]
+                    {
+                        new GuitarService()
+                    };
+
+                Log.Info("Launching application as service...");
+                ServiceBase.Run(ServicesToRun);
+            }
+            else
+            {
+                Log.Info("Launching application as console...");
+                RunAsConsole(args);
+            }
         }
 
         private static void RunAsConsole(string[] args)
@@ -57,7 +51,8 @@ namespace GuitarApi
                 using (DebugView debugView = new DebugView())
                 {
                     debugView.Show();
-                    
+                    service.StartApp(args);
+
                     while (!debugView.Stop)
                     {
                         Application.DoEvents();

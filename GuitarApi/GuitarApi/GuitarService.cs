@@ -15,6 +15,11 @@ namespace GuitarApi
             InitializeComponent();
         }
 
+        public void StartApp(string[] args)
+        {
+            OnStart(args);
+        }
+
         protected override void OnStart(string[] args)
         {
             _server = WebApp.Start<Startup>(baseAddress);
