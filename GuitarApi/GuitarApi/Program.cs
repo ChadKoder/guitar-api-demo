@@ -1,30 +1,69 @@
-﻿using System.ServiceProcess;
-using Autofac;
-using GuitarApi.Interfaces;
-using GuitarApi.Queries;
+﻿using System;
+using System.ServiceProcess;
+using System.Windows.Forms;
+using log4net;
 
 namespace GuitarApi
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main()
+      //  private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public static void Main(string[] args)
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterType<GetGuitarsByCompany>().As<IGetGuitarsByCompany>();
+            try
+            {
+                BuildContainer();
+                WriteDate();
 
-            var container = builder.Build();
-            container.Resolve<IGetGuitarsByCompany>();
-            
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new GuitarService()
-            };
+                log4net.Config.XmlConfigurator.Configure();
+             
+                var runAsService = CommandLineParser.ShouldRunAsService(args);
 
-            ServiceBase.Run(ServicesToRun);
+                if (runAsService)
+                {
+                    ServiceBase[] ServicesToRun;
+                    ServicesToRun = new ServiceBase[]
+                    {
+                        new GuitarService()
+                    };
+
+                    ServiceBase.Run(ServicesToRun);
+                }
+                else
+                {
+                    Log.Debug("Running application as console...");
+                    RunAsConsole(args);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("Application failed to load. {0}", ex.Message);
+            }
+        }
+
+        private static void BuildContainer()
+        {
+        }
+
+        private static void WriteDate()
+        {
+        }
+
+        private static void RunAsConsole(string[] args)
+        {
+            using (GuitarService service = new GuitarService())
+            {
+                using (DebugView debugView = new DebugView())
+                {
+                    debugView.Show();
+                    
+                    while (!debugView.Stop)
+                    {
+                        Application.DoEvents();
+                    }
+                }
+            }
         }
     }
 }

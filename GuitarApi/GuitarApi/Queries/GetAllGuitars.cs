@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace GuitarApi.Queries
 {
-    class GetAllGuitars : IGetAllGuitars
+    public class GetAllGuitars : IGetAllGuitars
     {
         public virtual List<Guitar> Select()
         {

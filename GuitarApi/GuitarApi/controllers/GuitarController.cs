@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Web.Http;
 using GuitarApi.Formatters;
 using GuitarApi.Interfaces;
-using GuitarApi.Queries;
+using log4net;
 
 namespace GuitarApi.controllers
 {
@@ -12,6 +13,8 @@ namespace GuitarApi.controllers
     {
         private readonly IGetGuitarsByCompany _getGuitarsByCompany;
         private readonly IGetAllGuitars _getAllGuitars;
+        
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public GuitarController(IGetGuitarsByCompany getGuitarsByCompany, IGetAllGuitars getAllGuitars)
         {
@@ -36,11 +39,15 @@ namespace GuitarApi.controllers
         {
             try
             {
+                //Log.DebugFormat("Get: " + searchText);
+                Log.InfoFormat("searching for guitars with text: {0}", searchText);
+
                 var results = _getGuitarsByCompany.Select(searchText);
                 return Request.CreateResponse(HttpStatusCode.OK, results, new JsonpMediaTypeFormatter(Request));
             }
             catch (Exception ex)
             {
+                
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
