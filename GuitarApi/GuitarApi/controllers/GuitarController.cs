@@ -31,6 +31,7 @@ namespace GuitarApi.controllers
             }
             catch (Exception ex)
             {
+                Log.ErrorFormat("Get all guitars failed: {0}", ex.Message);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
@@ -39,7 +40,6 @@ namespace GuitarApi.controllers
         {
             try
             {
-                //Log.DebugFormat("Get: " + searchText);
                 Log.InfoFormat("searching for guitars with text: {0}", searchText);
 
                 var results = _getGuitarsByCompany.Select(searchText);
@@ -47,7 +47,7 @@ namespace GuitarApi.controllers
             }
             catch (Exception ex)
             {
-                
+                Log.ErrorFormat("Guitar search failed: {0}", ex.Message);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
