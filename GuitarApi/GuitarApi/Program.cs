@@ -56,6 +56,11 @@ namespace GuitarApi
                     while (!debugView.Stop)
                     {
                         Application.DoEvents();
+
+                        if (debugView.Stop)
+                        {
+                            service.StopApp();
+                        }
                     }
                 }
             }
