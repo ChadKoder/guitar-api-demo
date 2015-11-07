@@ -1,13 +1,12 @@
 ﻿using System;
 using System.ServiceProcess;
-using GuitarApi.Commands;
 using Microsoft.Owin.Hosting;
 
 namespace GuitarApi
 {
     public partial class GuitarService : ServiceBase
     {
-        public string baseAddress = "http://localhost:8103/";
+        private const string BaseAddress = "http://localhost:8103/";
         private IDisposable _server;
         
         public GuitarService()
@@ -22,7 +21,7 @@ namespace GuitarApi
 
         protected override void OnStart(string[] args)
         {
-            _server = WebApp.Start<Startup>(baseAddress);
+            _server = WebApp.Start<Startup>(BaseAddress);
         }
 
         public void StopApp()
