@@ -8,7 +8,7 @@ namespace GuitarApi
     public partial class GuitarService : ServiceBase
     {
         public string baseAddress = "http://localhost:8103/";
-        private IDisposable _server = null;
+        private IDisposable _server;
         
         public GuitarService()
         {
@@ -25,10 +25,13 @@ namespace GuitarApi
             _server = WebApp.Start<Startup>(baseAddress);
         }
 
+        public void StopApp()
+        {
+            OnStop();
+        }
+
         protected override void OnStop()
         {
-            new DeleteAllFromRepository().Delete();
-
             if(_server != null)
             {
                 _server.Dispose();
