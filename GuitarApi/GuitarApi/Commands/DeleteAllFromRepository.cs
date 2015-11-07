@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace GuitarApi.Commands
 {
-    class DeleteAllFromRepository
+    public class DeleteAllFromRepository
     {
         public void Delete()
         {
