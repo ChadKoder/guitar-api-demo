@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
@@ -20,6 +18,8 @@ namespace GuitarApi
         public void Configuration(IAppBuilder appBuilder)
         {
             appBuilder.UseWebApi(BuildHttpConfigurations());
+            /*refresh DB data*/
+            new DeleteAllFromRepository().Delete();
             new CreateSampleData().Create();
         }
 
